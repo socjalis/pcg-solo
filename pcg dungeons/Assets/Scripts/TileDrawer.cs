@@ -9,8 +9,6 @@ public class TileDrawer : MonoBehaviour
     public Tilemap tilemap;
     public Tile wall;
     public Tile room;
-    private int x;
-    private int y;
 
     private int[,] map;
 
@@ -18,17 +16,16 @@ public class TileDrawer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        x = 20;
-        y = 20;
-        map = new int[x, y];
-        System.Random random = new System.Random();
-        for (int i = 0; i < x; i++)
+        if(Algorithms.current != null)
         {
-            for (int j = 0; j < y; j++)
-            {
-                map[i, j] = random.Next(0, 2);
-            }
+            map = Algorithms.current.generateMap();
+        } else {
+            Algorithms.current = new RandomAlgorithm();
+            map = Algorithms.current.generateMap();
         }
+        int x = map.GetLength(0);
+        int y = map.GetLength(1);
+
 
         for (int i = 0; i < x; i++)
         {
