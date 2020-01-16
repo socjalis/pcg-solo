@@ -3,17 +3,24 @@ using System.Collections;
 
 public class Zoom : MonoBehaviour
 {
-     
-void Update()
+    Camera cam;
+    //public GameObject player;
+    void Start()
+    {
+        cam = GetComponent<Camera>();
+    } 
+    void Update()
     {
         if (Input.GetAxis("Mouse ScrollWheel") > 0)
         {
-            GetComponent<Camera>().orthographicSize--;
+            cam.orthographicSize--;
         }
         else if (Input.GetAxis("Mouse ScrollWheel") < 0)
         {
-            GetComponent<Camera>().orthographicSize++;
+            cam.orthographicSize++;
         }
+
+        //cam.transform.position = player.transform.position + new Vector3(0f, 5f, -1.67f);
     }
 
 }
