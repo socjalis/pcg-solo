@@ -4,8 +4,9 @@
 Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_Name: Wood_004_Material
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: _EMISSION _NORMALMAP _PARALLAXMAP
@@ -60,12 +61,12 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _GlossMapScale: 0.406
-    - _Glossiness: 0.5
+    - _Glossiness: 0.475
     - _GlossyReflections: 1
-    - _Metallic: 0
+    - _Metallic: 1
     - _Mode: 0
     - _OcclusionStrength: 1
-    - _Parallax: 0.02
+    - _Parallax: 0.0152
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1

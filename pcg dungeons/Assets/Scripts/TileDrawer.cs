@@ -20,7 +20,7 @@ public class TileDrawer : MonoBehaviour
         {
             map = Algorithms.current.generateMap();
         } else {
-            Algorithms.current = new RandomAlgorithm();
+            Algorithms.current = new BSPAlgorithm();
             map = Algorithms.current.generateMap();
         }
         int x = map.GetLength(0);

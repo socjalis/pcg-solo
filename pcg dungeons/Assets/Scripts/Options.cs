@@ -13,7 +13,6 @@ public class Options : MonoBehaviour
     private void Start()
     {
         GetComponentInChildren<Dropdown>().value = 1;
-        GetComponentInChildren<Dropdown>().value = 0;
     }
 
     public void onAlgorithmDropdownChange(Dropdown dropdown)
@@ -31,7 +30,11 @@ public class Options : MonoBehaviour
         if (option == "Random")
         {
             Algorithms.current = new RandomAlgorithm();
-        } 
+        }
+        else if (option == "BSP")
+        {
+            Algorithms.current = new BSPAlgorithm();
+        }
         else
         {
             Algorithms.current = null;
