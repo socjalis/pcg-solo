@@ -24,7 +24,7 @@ public class Bullet : MonoBehaviour
     void OnCollisionEnter(Collision col)
     {
         GetComponent<Rigidbody>().useGravity = true;
-        if (col.gameObject.name == "Enemy")
+        if (col.gameObject.layer == 10)
         {
             Debug.Log(col.gameObject.name);
             Destroy(col.gameObject);
