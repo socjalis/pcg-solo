@@ -4,7 +4,7 @@ using System.Collections;
 public class Zoom : MonoBehaviour
 {
     Camera cam;
-    //public GameObject player;
+    public GameObject player;
     void Start()
     {
         cam = GetComponent<Camera>();
@@ -20,7 +20,7 @@ public class Zoom : MonoBehaviour
             cam.orthographicSize++;
         }
 
-        //cam.transform.position = player.transform.position + new Vector3(0f, 5f, -1.67f);
+        cam.transform.position = player.transform.position + new Vector3(-5.5f, 8.51f, -5.5f);
     }
 
 }

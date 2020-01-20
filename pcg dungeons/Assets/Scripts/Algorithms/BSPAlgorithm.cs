@@ -133,21 +133,21 @@ public class BSPAlgorithm : Algorithm
     {
         foreach(Node node in rooms)
         {
-            Debug.Log("lu: " + node.lu.ToString() + " rb: " + node.rb.ToString());
+            //Debug.Log("lu: " + node.lu.ToString() + " rb: " + node.rb.ToString());
             int left = node.lu.x + wallThickness;
             int right = node.rb.x - minSize;
-            Debug.Log("left: " + left + "-" + right);
+            //Debug.Log("left: " + left + "-" + right);
 
             int l = random.Next(left, right);
-            Debug.Log("right: " + (l + minSize) + "-" + (node.rb.x - wallThickness));
+            //Debug.Log("right: " + (l + minSize) + "-" + (node.rb.x - wallThickness));
             int r = random.Next(l + minSize, node.rb.x);
 
             int up = node.lu.y - wallThickness;
             int down = node.rb.y + minSize;
-            Debug.Log("up: " + down + "-" + up);
+            //Debug.Log("up: " + down + "-" + up);
 
             int u = random.Next(down, up);
-            Debug.Log("down: " + (node.rb.y + wallThickness) + "-" + (u - minSize));
+            //Debug.Log("down: " + (node.rb.y + wallThickness) + "-" + (u - minSize));
 
             int b = random.Next(node.rb.y + wallThickness, u);
             node.lu = new Vector2Int(l, u);

@@ -21,7 +21,7 @@ public class MapGeneration : MonoBehaviour
         }
         else
         {
-            Algorithms.current = new RandomAlgorithm();
+            Algorithms.current = new BSPAlgorithm();
             map = Algorithms.current.generateMap();
         }
         mapSize = new Vector2(map.GetLength(0), map.GetLength(1));
