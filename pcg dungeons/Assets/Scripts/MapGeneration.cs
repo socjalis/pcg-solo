@@ -8,9 +8,14 @@ public class MapGeneration : MonoBehaviour
     public Transform wallPrefab;
     public Transform playerPrefab;
     public Transform enemyPrefab;
-    public Transform grassPrefab;
+    public Transform plantPrefab;
+    public Transform rockPrefab;
+    public int enemies;
+    public int plants;
+    public int rocks;
     private Vector2 mapSize;
     private int[,] map;
+ 
     System.Random rnd;
 
     private void Start()
@@ -30,6 +35,7 @@ public class MapGeneration : MonoBehaviour
         GenerateWalls();
         List<Vector2Int> roomTiles = GetRoomTiles();
         GeneratePlayer(roomTiles);
+        GenerateGrass(roomTiles, plants);
     }
 
     void GenerateMap()
@@ -92,7 +98,7 @@ public class MapGeneration : MonoBehaviour
         
         Zoom.player = Instantiate(playerPrefab, playerPosition, Quaternion.identity).gameObject;
 
-        GenerateEnemies(roomTiles, 10);
+        GenerateEnemies(roomTiles, enemies);
     }
      
     void GenerateEnemies(List<Vector2Int> roomTiles, int nEnemies)
@@ -105,6 +111,37 @@ public class MapGeneration : MonoBehaviour
             roomTiles.RemoveAt(index);
             Vector3 enemyPosition = new Vector3(-mapSize.x / 2 + 0.5f + tile.x, 0.5f, -mapSize.y / 2 + 0.5f + tile.y);
             Instantiate(enemyPrefab, enemyPosition, Quaternion.identity);
+        }
+    }
+
+    void GenerateGrass(List<Vector2Int> roomTiles, int plants)
+    {
+        int numberOfPlants= Mathf.Min(plants, roomTiles.Count);
+        for (int i = 0; i < numberOfPlants; i++)
+        {
+            int index = rnd.Next(0, roomTiles.Count);
+            Vector2Int tile = roomTiles[index];
+            roomTiles.RemoveAt(index);
+            float offsetX = (rnd.Next(0, 100) - 50f) / 100;
+            float offsetY = (rnd.Next(0, 100) - 50f) / 100;
+            Vector3 plantPosition = new Vector3(-mapSize.x / 2 + 0.5f + tile.x + offsetX, 0f, -mapSize.y / 2 + 0.5f + tile.y + offsetY);
+            Instantiate(plantPrefab, plantPosition, Quaternion.identity * Quaternion.Euler(0f, rnd.Next(0, 180), 0f));
+        }
+        GenerateRocks(roomTiles, rocks);
+    }
+    
+    void GenerateRocks(List<Vector2Int> roomTiles, int rocks)
+    {
+        int numberOfRocks = Mathf.Min(plants, roomTiles.Count);
+        for (int i = 0; i < numberOfRocks; i++)
+        {
+            int index = rnd.Next(0, roomTiles.Count);
+            Vector2Int tile = roomTiles[index];
+            roomTiles.RemoveAt(index);
+            float offsetX = (rnd.Next(0, 100) - 50f) / 100;
+            float offsetY = (rnd.Next(0, 100) - 50f) / 100;
+            Vector3 rockPosition = new Vector3(-mapSize.x / 2 + 0.5f + tile.x + offsetX, 0f, -mapSize.y / 2 + 0.5f + tile.y + offsetY);
+            Instantiate(rockPrefab, rockPosition, Quaternion.identity * Quaternion.Euler(0f, rnd.Next(0, 180), 0f));
         }
     }
 }

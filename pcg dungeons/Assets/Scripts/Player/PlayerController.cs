@@ -24,14 +24,10 @@ public class PlayerController : MonoBehaviour
     {
         myRigidBody.MovePosition(myRigidBody.position + velocity * Time.fixedDeltaTime);
         if (lookDirection != Vector3.zero) {
-            Quaternion q = Quaternion.LookRotation(lookDirection.normalized, Vector3.up) * Quaternion.Euler(0f, -90f, 0f);
-            Vector3 v = Vector3.RotateTowards(transform.forward, lookDirection, 20 * Mathf.Deg2Rad, 1f);
+            //Quaternion q = Quaternion.LookRotation(lookDirection.normalized, Vector3.up) * Quaternion.Euler(0f, -90f, 0f);
+            //Vector3 v = Vector3.RotateTowards(transform.forward, lookDirection, 20 * Mathf.Deg2Rad, 1f);
 
             transform.rotation = Quaternion.LookRotation(lookDirection.normalized, Vector3.up)*Quaternion.Euler(0f, -90f, 0f);
-
-            //Quaternion q = transform.localRotation;
-            //q.y -= 90;
-            //transform.localRotation = q;
         }
         myRigidBody.velocity = new Vector3(0f, 0f, 0f);
     }
