@@ -45,8 +45,8 @@ public class BSPAlgorithm : Algorithm
 
         List<Node> rooms = new List<Node>(); 
         DivideNode(tree, rooms);
-        CreateRooms(rooms);
         CreateCorridors(tree, map);
+        CreateRooms(rooms);
         
         foreach(Node room in rooms)
         {

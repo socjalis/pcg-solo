@@ -36,7 +36,7 @@ public class GameInfo: MonoBehaviour
         {
             CreateEnemy();
         }
-        
+        //Debug.Log(1/Time.deltaTime);
     }
 
 

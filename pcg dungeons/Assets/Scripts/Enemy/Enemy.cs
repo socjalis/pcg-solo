@@ -20,6 +20,7 @@ public class Enemy : MonoBehaviour
     {
         player = GameObject.FindWithTag("Player").transform;
         direction = new Vector3();
+        directionOffset += new System.Random().Next(0, 2) - 1;
         directionTimer = directionOffset;
         myRigidBody = GetComponent<Rigidbody>();
     }
@@ -38,9 +39,9 @@ public class Enemy : MonoBehaviour
         if (directionTimer < 0)
         {
             Vector2Int pos = Helper.WorldTo2d(transform.position);
-            Debug.Log("position: " + pos);
+            //Debug.Log("position: " + pos);
             Vector2Int dest = AI.NextStep(pos, Helper.WorldTo2d(player.position));
-            Debug.Log("dest: " + dest);
+            //Debug.Log("dest: " + dest);
             directionTimer = directionOffset;
             direction = new Vector3(dest.x - pos.x, 0.0f, dest.y - pos.y).normalized;
         }
