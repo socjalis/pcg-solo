@@ -12,8 +12,9 @@ GameObject:
   - component: {fileID: 1878209538698985163}
   - component: {fileID: 1878209538698985162}
   - component: {fileID: 1878209538698985156}
-  - component: {fileID: 1878209538698985159}
   - component: {fileID: 2049725088032138839}
+  - component: {fileID: 8157012532148126134}
+  - component: {fileID: 1744960319073868317}
   m_Layer: 10
   m_Name: Enemy
   m_TagString: Untagged
@@ -90,7 +91,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1878209538698985158}
   serializedVersion: 2
-  m_Mass: 10.95
+  m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0
   m_UseGravity: 0
@@ -98,23 +99,6 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 116
   m_CollisionDetection: 0
---- !u!114 &1878209538698985159
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1878209538698985158}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d9098731f852374b9b92132b1d63809, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 540905550911049275, guid: f2b69db661f017c44aa9f3db18db9faa,
-    type: 3}
-  timeout: 1
-  velocity: 10
-  bullets: []
 --- !u!136 &2049725088032138839
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -129,6 +113,40 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8157012532148126134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1878209538698985158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d69cfa158bfecb3448a9125a8360665c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 3.64
+  direction: {x: 0, y: 0, z: 0}
+  directionOffset: 0.1
+  deathPrefab: {fileID: 4043099551545146, guid: 4961a16ba01e09547be3e1c9d16d5ad0,
+    type: 3}
+--- !u!114 &1744960319073868317
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1878209538698985158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3f964727e220fd4884cac1cf37d283b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletPrefab: {fileID: 3407934989391006976, guid: 5780a9049fb0d06458eacbaf6ed5ae9f,
+    type: 3}
+  timeout: 1.05
+  velocity: 8.95
+  bullets: []
 --- !u!1 &1878209539501529059
 GameObject:
   m_ObjectHideFlags: 0

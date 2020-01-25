@@ -272,9 +272,9 @@ MonoBehaviour:
     type: 3}
   rockPrefab: {fileID: 3258697574813050470, guid: 4ee2bc01a9506d2458ebb528cc727f8b,
     type: 3}
-  enemies: 11
-  plants: 31
-  rocks: 61
+  enemies: 5
+  plants: 20
+  rocks: 37
 --- !u!1 &1476109491
 GameObject:
   m_ObjectHideFlags: 0

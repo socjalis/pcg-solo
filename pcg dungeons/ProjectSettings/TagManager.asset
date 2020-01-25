@@ -16,8 +16,8 @@ TagManager:
   - bullets
   - player
   - enemies
-  - 
-  - 
+  - postprocessing
+  - enemybullets
   - 
   - 
   - 

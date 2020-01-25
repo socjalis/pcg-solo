@@ -5,7 +5,7 @@ public class Zoom : MonoBehaviour
 {
     Camera cam;
     public static GameObject player;
-    float camHeight = 8.51f;
+    float camHeight = 5.51f;
     void Start()
     {
         cam = GetComponent<Camera>();
@@ -22,7 +22,7 @@ public class Zoom : MonoBehaviour
         }
         if (player != null)
         {
-            cam.transform.position = player.transform.position + new Vector3(-5.5f, camHeight, -5.5f);
+            cam.transform.position = player.transform.position + new Vector3(-3.5f, camHeight, -3.5f);
         }
     }
 

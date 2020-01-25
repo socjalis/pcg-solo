@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
+    public int lifespan;
+    bool down;
     // Start is called before the first frame update
     void Start()
     {
-        
+        Destroy(this.gameObject, lifespan);
     }
 
     // Update is called once per frame
@@ -24,11 +26,12 @@ public class Bullet : MonoBehaviour
     void OnCollisionEnter(Collision col)
     {
         GetComponent<Rigidbody>().useGravity = true;
-        if (col.gameObject.layer == 10)
+        if (col.gameObject.layer == 10 && !down)
         {
-            Debug.Log(col.gameObject.name);
-            Destroy(col.gameObject);
+            col.gameObject.GetComponent<Enemy>().GetShot();
             Destroy(this.gameObject);
+            GameInfo.IncScore(1);
         }
+        down = true;
     }
 }

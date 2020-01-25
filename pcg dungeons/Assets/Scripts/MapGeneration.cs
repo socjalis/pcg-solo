@@ -10,9 +10,13 @@ public class MapGeneration : MonoBehaviour
     public Transform enemyPrefab;
     public Transform plantPrefab;
     public Transform rockPrefab;
+    public Transform resurectionPrefab;
     public int enemies;
     public int plants;
     public int rocks;
+
+    static public List<Vector2Int> rooms;
+
     private Vector2 mapSize;
     private int[,] map;
  
@@ -36,6 +40,8 @@ public class MapGeneration : MonoBehaviour
         List<Vector2Int> roomTiles = GetRoomTiles();
         GeneratePlayer(roomTiles);
         GenerateGrass(roomTiles, plants);
+        AI.CreateTree(map);
+        rooms = GetRoomTiles();
     }
 
     void GenerateMap()
@@ -95,8 +101,10 @@ public class MapGeneration : MonoBehaviour
         Vector2Int tile = roomTiles[index];
         roomTiles.RemoveAt(index);
         Vector3 playerPosition = new Vector3(-mapSize.x / 2 + 0.5f + tile.x, 0.5f, -mapSize.y / 2 + 0.5f + tile.y);
-        
+        Vector3 resPosition = new Vector3(playerPosition.x, 0f, playerPosition.z);
+
         Zoom.player = Instantiate(playerPrefab, playerPosition, Quaternion.identity).gameObject;
+        Instantiate(resurectionPrefab, resPosition, Quaternion.LookRotation(Vector3.up));
 
         GenerateEnemies(roomTiles, enemies);
     }
