@@ -34,16 +34,22 @@ public class GameInfo: MonoBehaviour
         enemyTimer -= Time.deltaTime;
         if(enemyTimer < 0)
         {
-            List<Vector2Int> rooms = MapGeneration.rooms;
-            int index = new System.Random().Next(0, rooms.Count);
-            Vector2Int tile = rooms[index];
-            Vector3 enemyPosition = Helper._2dToWorld(tile);
-            Instantiate(enemyPrefab, enemyPosition, Quaternion.identity);
-            Vector3 resPosition = new Vector3(enemyPosition.x, 0f, enemyPosition.z);
-            Instantiate(resurectionPrefab, resPosition, Quaternion.LookRotation(Vector3.up));
-
-            enemyTimer = enemyInterval;
+            CreateEnemy();
         }
         
+    }
+
+
+    void CreateEnemy()
+    {
+        List<Vector2Int> rooms = MapGeneration.rooms;
+        int index = new System.Random().Next(0, rooms.Count);
+        Vector2Int tile = rooms[index];
+        Vector3 enemyPosition = Helper._2dToWorld(tile);
+        Instantiate(enemyPrefab, enemyPosition, Quaternion.identity);
+        Vector3 resPosition = new Vector3(enemyPosition.x, 0f, enemyPosition.z);
+        Instantiate(resurectionPrefab, resPosition, Quaternion.LookRotation(Vector3.up));
+
+        enemyTimer = enemyInterval;
     }
 }
