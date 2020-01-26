@@ -27,6 +27,8 @@ public class MapGeneration : MonoBehaviour
         if (Algorithms.current != null)
         {
             map = Algorithms.current.generateMap();
+            if (Algorithms.corridorMaker != null)
+                map = Algorithms.corridorMaker.makeCorridors(map);
         }
         else
         {

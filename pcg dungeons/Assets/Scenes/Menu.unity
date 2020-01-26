@@ -289,12 +289,20 @@ MonoBehaviour:
   m_CaptionImage: {fileID: 0}
   m_ItemText: {fileID: 591884048}
   m_ItemImage: {fileID: 0}
-  m_Value: 0
+  m_Value: 383
   m_Options:
     m_Options:
     - m_Text: Random
       m_Image: {fileID: 0}
     - m_Text: BSP
+      m_Image: {fileID: 0}
+    - m_Text: Adding + Random Corridors
+      m_Image: {fileID: 0}
+    - m_Text: Adding + Better Corridors
+      m_Image: {fileID: 0}
+    - m_Text: Overlaping + Random Corridors
+      m_Image: {fileID: 0}
+    - m_Text: Overlaping + Better Corridors
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
@@ -310,7 +318,7 @@ MonoBehaviour:
           m_StringArgument: dadasd
           m_BoolArgument: 0
         m_CallState: 2
-  m_AlphaFadeSpeed: 0.15
+  m_AlphaFadeSpeed: 0.1
 --- !u!114 &143331161
 MonoBehaviour:
   m_ObjectHideFlags: 0

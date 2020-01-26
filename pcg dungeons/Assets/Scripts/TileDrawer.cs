@@ -21,6 +21,9 @@ public class TileDrawer : MonoBehaviour
         if (Algorithms.current != null)
         {
             map = Algorithms.current.generateMap();
+
+            if (Algorithms.corridorMaker != null)
+                map = Algorithms.corridorMaker.makeCorridors(map);
         } else {
             Algorithms.current = new BSPAlgorithm();
             Debug.Log("wtf2");

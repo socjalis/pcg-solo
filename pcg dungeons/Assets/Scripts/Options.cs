@@ -36,6 +36,26 @@ public class Options : MonoBehaviour
         {
             Algorithms.current = new BSPAlgorithm();
         }
+        else if (option == "Adding + Random Corridors")
+        {
+            Algorithms.current = new AddingAlgorithm();
+            Algorithms.corridorMaker = new RandomCorridorMaker();
+        }
+        else if (option == "Adding + Better Corridors")
+        {
+            Algorithms.current = new AddingAlgorithm();
+            Algorithms.corridorMaker = new BetterCorridorMaker();
+        }
+        else if (option == "Overlaping + Random Corridors")
+        {
+            Algorithms.current = new OverlapingAlgorithm();
+            Algorithms.corridorMaker = new RandomCorridorMaker();
+        }
+        else if (option == "Overlaping + Better Corridors")
+        {
+            Algorithms.current = new OverlapingAlgorithm();
+            Algorithms.corridorMaker = new BetterCorridorMaker();
+        }
         else
         {
             Algorithms.current = null;
