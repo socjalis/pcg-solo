@@ -24,6 +24,7 @@ public class MapGeneration : MonoBehaviour
 
     private void Start()
     {
+        Time.timeScale = 1f;
         if (Algorithms.current != null)
         {
             map = Algorithms.current.generateMap();

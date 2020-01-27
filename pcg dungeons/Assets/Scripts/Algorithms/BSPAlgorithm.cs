@@ -8,7 +8,7 @@ public class BSPAlgorithm : Algorithm
     int mapHeight = 40;
     int minSize = 4;
     int wallThickness = 1;
-    int wallSpace = 3;
+    int wallSpace = 2;
     System.Random random = new System.Random();
 
     public override void setParameters(SortedDictionary<string, string> parameters)
@@ -45,8 +45,9 @@ public class BSPAlgorithm : Algorithm
 
         List<Node> rooms = new List<Node>(); 
         DivideNode(tree, rooms);
-        CreateCorridors(tree, map);
         CreateRooms(rooms);
+        CreateCorridors(tree, map);
+        
         
         foreach(Node room in rooms)
         {
@@ -81,7 +82,7 @@ public class BSPAlgorithm : Algorithm
             direction = directions[0];
         }
 
-            if (direction == "horizontal")
+        if (direction == "horizontal")
         {
             
             if (minL >= maxR)
@@ -133,25 +134,47 @@ public class BSPAlgorithm : Algorithm
     {
         foreach(Node node in rooms)
         {
+            //half++rooms
             //Debug.Log("lu: " + node.lu.ToString() + " rb: " + node.rb.ToString());
-            int left = node.lu.x + wallThickness;
-            int right = node.rb.x - minSize;
-            //Debug.Log("left: " + left + "-" + right);
+            int minLeft = node.lu.x + wallThickness;
+            int maxLeft = Mathf.FloorToInt((node.lu.x + node.rb.x) / 2);
+            int left = random.Next(minLeft, maxLeft);
+            int minRight = left + minSize;
+            int maxRight = node.rb.x - wallThickness;
+            //Debug.Log("minRight:" + minRight + " maxRight: " + maxRight);
+            int right = random.Next(minRight, maxRight + 1);
+            //Debug.Log("LEFT: " + left + " RIGHT: " + right);
 
-            int l = random.Next(left, right);
-            //Debug.Log("right: " + (l + minSize) + "-" + (node.rb.x - wallThickness));
-            int r = random.Next(l + minSize, node.rb.x);
+            int minBot = node.rb.y + wallThickness;
+            int maxBot = Mathf.FloorToInt((node.rb.y + node.lu.y) / 2);
+            int bot = random.Next(minBot, maxBot);
+            int minTop = bot + minSize;
+            int maxTop = node.lu.y - wallThickness;
+            int top = random.Next(minTop, maxTop + 1);
 
-            int up = node.lu.y - wallThickness;
-            int down = node.rb.y + minSize;
-            //Debug.Log("up: " + down + "-" + up);
+            node.lu = new Vector2Int(left, top);
+            node.rb = new Vector2Int(right, bot);
 
-            int u = random.Next(down, up);
-            //Debug.Log("down: " + (node.rb.y + wallThickness) + "-" + (u - minSize));
+            //small rooms
+            //Debug.Log("lu: " + node.lu.ToString() + " rb: " + node.rb.ToString());
+            //int left = node.lu.x + wallThickness;
+            //int right = node.rb.x - minSize;
+            ////Debug.Log("left: " + left + "-" + right);
 
-            int b = random.Next(node.rb.y + wallThickness, u);
-            node.lu = new Vector2Int(l, u);
-            node.rb = new Vector2Int(r, b);
+            //int l = random.Next(left, right);
+            ////Debug.Log("right: " + (l + minSize) + "-" + (node.rb.x - wallThickness));
+            //int r = random.Next(l + minSize, node.rb.x);
+
+            //int up = node.lu.y - wallThickness;
+            //int down = node.rb.y + minSize;
+            ////Debug.Log("up: " + down + "-" + up);
+
+            //int u = random.Next(down, up);
+            ////Debug.Log("down: " + (node.rb.y + wallThickness) + "-" + (u - minSize));
+
+            //int b = random.Next(node.rb.y + wallThickness, u);
+            //node.lu = new Vector2Int(l, u);
+            //node.rb = new Vector2Int(r, b);
 
             //max sized rooms
             //node.lu = node.lu + new Vector2Int(wallThickness, -wallThickness);
@@ -166,6 +189,7 @@ public class BSPAlgorithm : Algorithm
             CreateCorridors(node.left, map);
             CreateCorridors(node.right, map);
             CreateCorridor(node.left, node.right, map);
+            CreateCorridor(node, node.right, map);
         }
     }
 

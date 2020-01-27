@@ -6,6 +6,8 @@ TagManager:
   tags:
   - joystick1
   - joystick2
+  - lost
+  - score
   layers:
   - Default
   - TransparentFX

@@ -80,6 +80,11 @@ public class Options : MonoBehaviour
         {
             string key = child.gameObject.GetComponentInChildren<Text>().text;
             string value = child.gameObject.GetComponentInChildren<InputField>().text;
+            if(value == "")
+            {
+                options.SetActive(false);
+                mainMenu.SetActive(true);
+            }
             paramMap.Add(key, value);
         }
         Algorithms.current.setParameters(paramMap);

@@ -125,9 +125,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d69cfa158bfecb3448a9125a8360665c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2.53
+  speed: 1
   direction: {x: 0, y: 0, z: 0}
-  directionOffset: 0.1
+  directionOffset: 3
   deathPrefab: {fileID: 4461574346646038, guid: ec1383a81f8b26e41bd5795fba065567,
     type: 3}
 --- !u!114 &1744960319073868317

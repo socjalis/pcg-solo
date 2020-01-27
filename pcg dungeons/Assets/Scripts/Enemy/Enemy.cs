@@ -45,6 +45,7 @@ public class Enemy : MonoBehaviour
             directionTimer = directionOffset;
             direction = new Vector3(dest.x - pos.x, 0.0f, dest.y - pos.y).normalized;
         }
+        myRigidBody.velocity = new Vector3(0f, 0f, 0f);
     }
 
     public void GetShot()
