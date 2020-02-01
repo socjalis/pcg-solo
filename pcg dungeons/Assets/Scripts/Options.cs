@@ -57,9 +57,14 @@ public class Options : MonoBehaviour
             Algorithms.current = new OverlapingAlgorithm();
             Algorithms.corridorMaker = new BetterCorridorMaker();
         }
-        else if (option == "Genetic/Evolutionary")
+        else if (option == "Genetic (Time consuming)")
         {
             Algorithms.current = new GeneticAlgorithm2();
+            Algorithms.corridorMaker = null;
+        }
+        else if (option == "Agent")
+        {
+            Algorithms.current = new AgentAlgorithm();
             Algorithms.corridorMaker = null;
         }
         else

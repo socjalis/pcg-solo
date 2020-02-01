@@ -12,7 +12,7 @@ public static class AI
         //Debug.Log("create tree");
         mapSize = new Vector2Int(map.GetLength(0), map.GetLength(1));
         tree = new List<Vector2Int>[mapSize.x, mapSize.y];
- 
+
         for (int x = 0; x < mapSize.x; x++)
         {
             for (int y = 0; y < mapSize.y; y++)
@@ -26,7 +26,7 @@ public static class AI
                         {
                             if (x + i > 0 && x + i < mapSize.x && y + j > 0 && y + j < mapSize.y)
                             {
-                                if (map[x+i,y+j] == 0)
+                                if (map[x + i, y + j] == 0)
                                 {
                                     tree[x, y].Add(new Vector2Int(x + i, y + j));
                                 }
@@ -51,7 +51,7 @@ public static class AI
     static List<Vector2Int> FindPath(Vector2Int start, Vector2Int dest)
     {
         System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
-        
+
         //Debug.Log("Find path");
         Queue<Vector2Int> q = new Queue<Vector2Int>();
         int[,] color = new int[mapSize.x, mapSize.y];
@@ -61,15 +61,15 @@ public static class AI
         color[start.x, start.y] = 1;
         distance[start.x, start.y] = 1;
         q.Enqueue(start);
-        
-        while(q.Count != 0)
+
+        while (q.Count != 0)
         {
             Vector2Int t = q.Dequeue();
             //Debug.Log("dequeued: " + t);
-            
-            foreach(Vector2Int n in tree[t.x, t.y])
+
+            foreach (Vector2Int n in tree[t.x, t.y])
             {
-                if(color[n.x, n.y] == 0)
+                if (color[n.x, n.y] == 0)
                 {
                     color[n.x, n.y] = 1;
                     distance[n.x, n.y] = color[t.x, t.y] + 1;
@@ -96,7 +96,7 @@ public static class AI
             return path;
         }
 
-        while(cur.x != 0 || cur.y !=0)
+        while (cur.x != 0 || cur.y != 0)
         {
             Vector2Int p = parent[cur.x, cur.y];
             if (p.Equals(start))
@@ -105,7 +105,7 @@ public static class AI
                 return path;
             }
             //Debug.Log("dodaję:" + cur.ToString());
-            
+
             path.Add(parent[cur.x, cur.y]);
             cur = parent[cur.x, cur.y];
         }

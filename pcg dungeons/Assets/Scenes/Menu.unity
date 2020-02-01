@@ -346,7 +346,7 @@ MonoBehaviour:
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
-  m_ChildControlHeight: 0
+  m_ChildControlHeight: 1
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
 --- !u!114 &288961373
@@ -2413,9 +2413,9 @@ MonoBehaviour:
   m_Value: 0
   m_Options:
     m_Options:
-    - m_Text: BSP
-      m_Image: {fileID: 0}
     - m_Text: Random
+      m_Image: {fileID: 0}
+    - m_Text: BSP
       m_Image: {fileID: 0}
     - m_Text: Adding + Random Corridors
       m_Image: {fileID: 0}
@@ -2425,7 +2425,9 @@ MonoBehaviour:
       m_Image: {fileID: 0}
     - m_Text: Overlaping + Better Corridors
       m_Image: {fileID: 0}
-    - m_Text: Genetic/Evolutionary
+    - m_Text: Agent
+      m_Image: {fileID: 0}
+    - m_Text: Genetic (Time consuming)
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
