@@ -6,6 +6,7 @@ public static class Helper
 {
     static public Vector2Int WorldTo2d(Vector3 pos)
     {
+        //Debug.Log("x: " + pos.x + " x res: " + (Mathf.RoundToInt(pos.x + AI.mapSize.x / 2 - 0.5f)) + "y: " + pos.z + " y res: " + Mathf.RoundToInt(pos.z + AI.mapSize.y / 2 - 0.5f));
         return new Vector2Int(Mathf.RoundToInt(pos.x + AI.mapSize.x / 2 - 0.5f), Mathf.RoundToInt(pos.z + AI.mapSize.y / 2 - 0.5f));
     }
 

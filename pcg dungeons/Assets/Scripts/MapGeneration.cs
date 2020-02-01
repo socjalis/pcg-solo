@@ -64,6 +64,7 @@ public class MapGeneration : MonoBehaviour
                 Vector3 tilePosition = new Vector3(-mapSize.x / 2 + 0.5f + x, 0, -mapSize.y/2 + 0.5f + y);
                 Transform newTile = Instantiate(tilePrefab, tilePosition, Quaternion.Euler(Vector3.right * 90)) as Transform;
                 newTile.parent = mapHolder;
+                newTile.gameObject.name = "x: " + x.ToString() + " y: " + y.ToString();
             }
         }
     }
@@ -77,6 +78,7 @@ public class MapGeneration : MonoBehaviour
                 {
                     Vector3 wallPosition = new Vector3(-mapSize.x / 2 + 0.5f + x, 0.5f, -mapSize.y / 2 + 0.5f + y);
                     Transform newWall = Instantiate(wallPrefab, wallPosition, Quaternion.identity) as Transform;
+                    newWall.gameObject.name = "x: " + x.ToString() + " y: " + y.ToString();
                 }
             }
         }

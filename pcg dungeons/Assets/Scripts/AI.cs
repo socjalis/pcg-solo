@@ -40,6 +40,8 @@ public static class AI
 
     static public Vector2Int NextStep(Vector2Int start, Vector2Int dest)
     {
+        //Debug.Log(start);
+
         //Debug.Log("Next step");
         List<Vector2Int> path = FindPath(start, dest);
         //Debug.Log("oddaje: " + path[0]);
@@ -49,7 +51,6 @@ public static class AI
     static List<Vector2Int> FindPath(Vector2Int start, Vector2Int dest)
     {
         System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
-        sw.Start();
         
         //Debug.Log("Find path");
         Queue<Vector2Int> q = new Queue<Vector2Int>();
@@ -65,6 +66,7 @@ public static class AI
         {
             Vector2Int t = q.Dequeue();
             //Debug.Log("dequeued: " + t);
+            
             foreach(Vector2Int n in tree[t.x, t.y])
             {
                 if(color[n.x, n.y] == 0)
@@ -75,12 +77,6 @@ public static class AI
                     q.Enqueue(n);
                     if (n.Equals(dest))
                         return GetPath(distance, parent, start, dest);
-
-                    if (sw.Elapsed.TotalMilliseconds > 500)
-                    {
-                        Debug.Log("PRZERWANIE");
-                        return new List<Vector2Int>();
-                    }
                 }
             }
             color[t.x, t.y] = 2;
@@ -92,12 +88,13 @@ public static class AI
     {
         //Debug.Log("GetPath");
         System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
-        sw.Start();
         List<Vector2Int> path = new List<Vector2Int>();
         path.Add(dest);
-        Vector2Int cur = dest;
-        if (distance[cur.x, cur.y] == 0)
+        Vector2Int cur = new Vector2Int(dest.x, dest.y);
+        if (cur.x < 1 || cur.x > mapSize.x - 1 || cur.y < 1 || cur.y > mapSize.y - 1 || distance[cur.x, cur.y] == 0)
+        {
             return path;
+        }
 
         while(cur.x != 0 || cur.y !=0)
         {
@@ -111,11 +108,6 @@ public static class AI
             
             path.Add(parent[cur.x, cur.y]);
             cur = parent[cur.x, cur.y];
-            if (sw.Elapsed.TotalMilliseconds > 50)
-            {
-                Debug.Log("PRZERWANIE");
-                return new List<Vector2Int>();
-            }
         }
         path.Reverse();
         return path;

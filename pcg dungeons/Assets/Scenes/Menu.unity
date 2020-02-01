@@ -2413,9 +2413,9 @@ MonoBehaviour:
   m_Value: 0
   m_Options:
     m_Options:
-    - m_Text: Random
-      m_Image: {fileID: 0}
     - m_Text: BSP
+      m_Image: {fileID: 0}
+    - m_Text: Random
       m_Image: {fileID: 0}
     - m_Text: Adding + Random Corridors
       m_Image: {fileID: 0}
@@ -2424,6 +2424,8 @@ MonoBehaviour:
     - m_Text: Overlaping + Random Corridors
       m_Image: {fileID: 0}
     - m_Text: Overlaping + Better Corridors
+      m_Image: {fileID: 0}
+    - m_Text: Genetic/Evolutionary
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:

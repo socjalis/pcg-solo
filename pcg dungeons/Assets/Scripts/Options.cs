@@ -35,6 +35,7 @@ public class Options : MonoBehaviour
         else if (option == "BSP")
         {
             Algorithms.current = new BSPAlgorithm();
+            Algorithms.corridorMaker = null;
         }
         else if (option == "Adding + Random Corridors")
         {
@@ -55,6 +56,11 @@ public class Options : MonoBehaviour
         {
             Algorithms.current = new OverlapingAlgorithm();
             Algorithms.corridorMaker = new BetterCorridorMaker();
+        }
+        else if (option == "Genetic/Evolutionary")
+        {
+            Algorithms.current = new GeneticAlgorithm2();
+            Algorithms.corridorMaker = null;
         }
         else
         {

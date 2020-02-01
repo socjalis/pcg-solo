@@ -1,0 +1,78 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class TileTypes : MonoBehaviour
+{
+}
+
+/*
+LBCORNER
+    1--
+    1--
+    111
+LUCORNER
+    111
+    1--
+    1--
+RBCORNER
+    --1
+    --1
+    111
+RUCORNER
+    111
+    --1
+    --1
+BOTTOMEDGE
+    ---
+    ---
+    111
+TOPEDGE
+    111
+    ---
+    ---
+LEFTEDGE
+    1--
+    1--
+    1--
+RIGHTEDGE
+    --1
+    --1
+    --1
+VERTICALCORRIDOR
+    -1-
+    -1-
+    -1-
+HORIZONTALCORRIDOR
+    ---
+    111
+    ---
+ROOM
+    ---
+    ---
+    ---
+WALL
+    111
+    111
+    111
+CORRIDORMIDUPLEFT
+    1-1
+    --1
+    111
+CORRIDORMIDUPRIGHT
+    1-1
+    1--
+    111
+CORRIDORMIDDOWNLEFT
+    111
+    1--
+    1-1
+CORRIDORMIDDOWNRIGHT
+    111
+    --1
+    1-1
+CROSS
+    1-1
+    ---
+    1-1
+*/
