@@ -37,11 +37,9 @@ public class Enemy : MonoBehaviour
 
         directionTimer -= Time.fixedDeltaTime;
         if (directionTimer < 0)
-        {
+        { 
             Vector2Int pos = Helper.WorldTo2d(transform.position);
-            Debug.Log("position: " + pos);
             Vector2Int dest = AI.NextStep(pos, Helper.WorldTo2d(player.position));
-            Debug.Log("dest: " + dest);
             directionTimer = directionOffset;
             direction = new Vector3(dest.x - pos.x, 0.0f, dest.y - pos.y).normalized;
         }

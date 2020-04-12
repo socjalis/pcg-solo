@@ -7,7 +7,7 @@ public class BSPAlgorithm : Algorithm
     int mapWidth = 40;
     int mapHeight = 40;
     int minSize = 4;
-    int wallThickness = 1;
+    int wallThickness = 2;
     int wallSpace = 2;
     System.Random random = new System.Random();
 
