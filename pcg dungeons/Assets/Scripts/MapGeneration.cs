@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Diagnostics;
 
 public class MapGeneration : MonoBehaviour
 {
@@ -27,9 +28,10 @@ public class MapGeneration : MonoBehaviour
         Time.timeScale = 1f;
         if (Algorithms.current != null)
         {
+            //Stopwatch sw = Stopwatch.StartNew();
             map = Algorithms.current.generateMap();
-            if (Algorithms.corridorMaker != null)
-                map = Algorithms.corridorMaker.makeCorridors(map);
+            //sw.Stop();
+            //UnityEngine.Debug.Log("elapsed ms: " + sw.ElapsedMilliseconds);
         }
         else
         {
@@ -123,7 +125,7 @@ public class MapGeneration : MonoBehaviour
             Vector2Int tile = roomTiles[index];
             roomTiles.RemoveAt(index);
             Vector3 enemyPosition = new Vector3(-mapSize.x / 2 + 0.5f + tile.x, 0.5f, -mapSize.y / 2 + 0.5f + tile.y);
-            Instantiate(enemyPrefab, enemyPosition, Quaternion.identity);
+            var enemy = Instantiate(enemyPrefab, enemyPosition, Quaternion.identity);
         }
     }
 

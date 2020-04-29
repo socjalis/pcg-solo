@@ -144,8 +144,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 3407934989391006976, guid: 5780a9049fb0d06458eacbaf6ed5ae9f,
     type: 3}
-  timeout: 1.05
-  velocity: 8.95
+  timeout: 1.71
+  velocity: 4.31
   bullets: []
 --- !u!1 &1878209539501529059
 GameObject:

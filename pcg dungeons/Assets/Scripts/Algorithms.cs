@@ -6,5 +6,4 @@ using UnityEngine;
 public class Algorithms
 {
     public static Algorithm current;
-    public static CorridorMaker corridorMaker;
 }

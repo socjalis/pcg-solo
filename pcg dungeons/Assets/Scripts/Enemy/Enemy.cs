@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -29,8 +30,11 @@ public class Enemy : MonoBehaviour
     void FixedUpdate()
     {
         myRigidBody.MovePosition(myRigidBody.position + direction * speed * Time.fixedDeltaTime);
-
-        Quaternion q = Quaternion.LookRotation(direction.normalized, Vector3.up) * Quaternion.Euler(0f, -90f, 0f);
+        Quaternion q = Quaternion.identity;
+        if(!direction.normalized.Equals(Vector3.zero))
+        {
+            q = Quaternion.LookRotation(direction.normalized, Vector3.up) * Quaternion.Euler(0f, -90f, 0f);
+        }
         Vector3 w = q * Vector3.forward;
         Vector3 v = Vector3.RotateTowards(transform.forward, w, 5 * Mathf.Deg2Rad, 1f);
         transform.rotation = Quaternion.LookRotation(v);

@@ -54,8 +54,9 @@ public class GeneticAlgorithm : Algorithm
         Tile[,] tileMap;
         System.Random rnd;
         int roomDensity;
-        public int tileScore;
         int rooms;
+        public int tileScore;
+
 
         public Room(Vector2Int size, int density)
         {

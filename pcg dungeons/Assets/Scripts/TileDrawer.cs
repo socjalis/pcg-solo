@@ -16,17 +16,13 @@ public class TileDrawer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("wtf");
 
         if (Algorithms.current != null)
         {
             map = Algorithms.current.generateMap();
 
-            if (Algorithms.corridorMaker != null)
-                map = Algorithms.corridorMaker.makeCorridors(map);
         } else {
             Algorithms.current = new BSPAlgorithm();
-            Debug.Log("wtf2");
             map = Algorithms.current.generateMap();
         }
         int x = map.GetLength(0);

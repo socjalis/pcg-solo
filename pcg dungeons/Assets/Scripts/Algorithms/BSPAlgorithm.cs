@@ -9,7 +9,6 @@ public class BSPAlgorithm : Algorithm
     int minSize = 4;
     int wallThickness = 2;
     int wallSpace = 2;
-    System.Random random = new System.Random();
 
     public override void setParameters(SortedDictionary<string, string> parameters)
     {
@@ -66,7 +65,7 @@ public class BSPAlgorithm : Algorithm
     void DivideNode(Node node, List<Node> rooms)
     {
         string[] directions = { "horizontal", "vertical" };
-        string direction = directions[random.Next(2)];
+        string direction = directions[Random.Range(0,2)];
         int minL = node.lu.x + minSize + wallThickness+wallSpace;
         int maxR = node.rb.x - minSize - wallThickness-wallSpace;
 
@@ -92,7 +91,7 @@ public class BSPAlgorithm : Algorithm
             }
             else
             {
-                int line = random.Next(minL, maxR+1);
+                int line = Random.Range(minL, maxR+1);
                 node.left = new Node();
                 node.left.lu = node.lu;
                 node.left.rb = new Vector2Int(line, node.rb.y);
@@ -112,7 +111,7 @@ public class BSPAlgorithm : Algorithm
             }
             else
             {
-                int line = random.Next(minB, maxU+1);
+                int line = Random.Range(minB, maxU+1);
                 node.left = new Node();
                 node.left.lu = node.lu;
                 node.left.rb = new Vector2Int(node.rb.x, line);
@@ -128,6 +127,7 @@ public class BSPAlgorithm : Algorithm
     void CreateLeaf(Node node, List<Node> rooms)
     {
         rooms.Add(node);
+        Debug.Log(rooms.Count);
     }
 
     void CreateRooms(List<Node> rooms)
@@ -138,19 +138,19 @@ public class BSPAlgorithm : Algorithm
             //Debug.Log("lu: " + node.lu.ToString() + " rb: " + node.rb.ToString());
             int minLeft = node.lu.x + wallThickness;
             int maxLeft = Mathf.FloorToInt((node.lu.x + node.rb.x) / 2);
-            int left = random.Next(minLeft, maxLeft);
+            int left = Random.Range(minLeft, maxLeft);
             int minRight = left + minSize;
             int maxRight = node.rb.x - wallThickness;
             //Debug.Log("minRight:" + minRight + " maxRight: " + maxRight);
-            int right = random.Next(minRight, maxRight + 1);
+            int right = Random.Range(minRight, maxRight + 1);
             //Debug.Log("LEFT: " + left + " RIGHT: " + right);
 
             int minBot = node.rb.y + wallThickness;
             int maxBot = Mathf.FloorToInt((node.rb.y + node.lu.y) / 2);
-            int bot = random.Next(minBot, maxBot);
+            int bot = Random.Range(minBot, maxBot);
             int minTop = bot + minSize;
             int maxTop = node.lu.y - wallThickness;
-            int top = random.Next(minTop, maxTop + 1);
+            int top = Random.Range(minTop, maxTop + 1);
 
             node.lu = new Vector2Int(left, top);
             node.rb = new Vector2Int(right, bot);

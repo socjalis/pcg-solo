@@ -2417,14 +2417,6 @@ MonoBehaviour:
       m_Image: {fileID: 0}
     - m_Text: BSP
       m_Image: {fileID: 0}
-    - m_Text: Adding + Random Corridors
-      m_Image: {fileID: 0}
-    - m_Text: Adding + Better Corridors
-      m_Image: {fileID: 0}
-    - m_Text: Overlaping + Random Corridors
-      m_Image: {fileID: 0}
-    - m_Text: Overlaping + Better Corridors
-      m_Image: {fileID: 0}
     - m_Text: Agent
       m_Image: {fileID: 0}
     - m_Text: Genetic (Time consuming)
@@ -2948,7 +2940,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 4
-  m_Spacing: 15
+  m_Spacing: 35
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 0

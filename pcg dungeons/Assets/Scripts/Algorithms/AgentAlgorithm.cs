@@ -5,39 +5,29 @@ using UnityEngine;
 public class AgentAlgorithm : Algorithm
 {
     // parameters
-    int mapWidth = 8;
-    int mapHeight = 8;
-    public int minRoomSize = 2;
-    public int maxRoomSize;
-    [Range(0, 100)]
-    public int changingDirectionStep = 10;
-    [Range(0, 100)]
-    public int creatingRoomStep = 10;
-    public int maxNumberOfSteps; //= 10000;
+    int mapWidth = 40;
+    int mapHeight = 40;
 
-    // current data
-    int currentDirectionChance = 50;
-    int currentRoomChance = 50;
-    string currentDirection;
-    bool isEnoughSpace = true;
-    Vector2Int digger = new Vector2Int();
-    Dictionary<string, Vector2Int> directions = new Dictionary<string, Vector2Int>()
-    {
-        { "up", new Vector2Int(0, -1) },
-        { "down", new Vector2Int(0, 1) },
-        { "left", new Vector2Int(-1, 0) },
-        { "right", new Vector2Int(1, 0) }
+    int minRoomSize = 2;
+    int maxRoomSize = 8;
+
+    int roomChanceInc = 2;
+    int directionChanceInc = 5;
+    int tolerance = 50;
+
+    List<Vector2Int> directions = new List<Vector2Int> {
+        new Vector2Int(0, -1),
+        new Vector2Int(-1, 0),
+        new Vector2Int(1, 0),
+        new Vector2Int(0, 1)
     };
-    string[] directionIndexes = { "up", "down", "left", "right" };
 
 
     public override void setParameters(SortedDictionary<string, string> parameters)
     {
         mapWidth = int.Parse(parameters["Map width"]);
         mapHeight = int.Parse(parameters["Map height"]);
-        changingDirectionStep = int.Parse(parameters["Changing direction step"]);
-        creatingRoomStep = int.Parse(parameters["Creating room step"]);
-        //maxNumberOfSteps = int.Parse(parameters["Max number of steps"]);
+        tolerance = tolerance * mapWidth;
     }
 
     public override SortedDictionary<string, string> getParameters()
@@ -45,140 +35,176 @@ public class AgentAlgorithm : Algorithm
         return new SortedDictionary<string, string>(){
             { "Map width", "string" },
             { "Map height", "string" },
-            { "Changing direction step", "string" },
-            { "Creating room step", "string" }//,
-            //{ "Max number of steps", "string"}
         };
     }
 
-    public void digTunnel(int[,] map)
+    bool IsInMapRange(Vector2Int pos)
     {
-        digger += directions[currentDirection];
-        if (digger.x >= mapWidth || digger.x < 0
-            || digger.y >= mapHeight || digger.y < 0) // if digger reaches border
-        {
-            isEnoughSpace = false; // end of algorithm
-            Debug.Log("Digger reached a border." + digger.x + digger.y);
-        }
-
-        else if (map[digger.x, digger.y] != 0)
-        {
-            map[digger.x, digger.y] = 0;
-            Debug.Log("Digger digs.");
-        }
-        else // digger reaches a tunnel or a room
-        {
-            Debug.Log("Digger reached a tunnel.");
-        }
-    }
-
-    public void tryToChangeDirection(System.Random random)
-    {
-        int number = random.Next(0, 101);
-        Debug.Log("Change direction number: " + number);
-        if (number <= currentDirectionChance)
-        {
-            int randomDir;
-            do
-            {
-                randomDir = random.Next(0, 4);
-            }
-            while (directionIndexes[randomDir] == currentDirection);
-            currentDirection = directionIndexes[randomDir];
-            Debug.Log("Current direction: " + currentDirection);
-
-            currentDirectionChance = 0;
-        }
-        else
-        {
-            currentDirectionChance += changingDirectionStep;
-        }
-    }
-
-    bool digRoom(int[,] map, System.Random random)
-    {
-        int x = random.Next(minRoomSize, maxRoomSize + 1);
-        int y = random.Next(minRoomSize, maxRoomSize + 1);
-        int startX = digger.x - (int)Mathf.Ceil(x / 2);
-        int startY = digger.y - (int)Mathf.Ceil(y / 2);
-        int endX = digger.x + (int)Mathf.Floor(x / 2);
-        int endY = digger.y + (int)Mathf.Floor(y / 2);
-        if (startX < 0 || startY < 0 || endX >= mapWidth || endY >= mapHeight)
+        if (pos.x > mapWidth - 2 || pos.x < 1 || pos.y > mapHeight - 2 || pos.y < 1)
         {
             return false;
         }
-        else
+        else return true;
+    }
+
+    bool IsEmptyEnough(Vector2Int pos, int[,] map, int limit)
+    {
+        int counter = 0;
+        for(int i = pos.x - 1; i <= pos.x + 1; i++)
         {
-            for (int i = startX; i <= endX; i++)
+            for(int j = pos.y - 1; j <= pos.y + 1; j++)
             {
-                for (int j = startY; j < endY; j++)
+                if(IsInMapRange(new Vector2Int(i, j)))
                 {
-                    map[i, j] = 0;
+                    if(map[i, j] == 0)
+                    {
+                        counter++;
+                    }
                 }
             }
-            return true;
         }
+        return counter <= limit;
     }
 
-    bool checkIfRoomPossible(System.Random random)
+    bool IsInMapRangeAndEmpty(Vector2Int pos, int[,] map)
     {
-        int number = random.Next(0, 101);
-        if (number <= currentRoomChance)
+        if (pos.x > mapWidth - 2 || pos.x < 1 || pos.y > mapHeight - 2 || pos.y < 1 || map[pos.x, pos.y] == 0)
         {
-            currentRoomChance = 0;
-            return true;
-        }
-        else
-        {
-            currentRoomChance += creatingRoomStep;
             return false;
         }
+        else return true;
     }
 
+
+    bool CreateRoom(Vector2Int pos, int[,] map, int[,] rooms)
+    {
+        if(pos.x - 1 < 1 || (mapWidth - 1) - pos.x < 1 || pos.y - 1 < 1 || (mapHeight - 1) - pos.y < 1)
+        {
+            return false;
+        }
+        int max = (int)(maxRoomSize / 2);
+        int roomLeft = Random.Range(1, Mathf.Min(max, pos.x - 1));
+        int roomRight = Random.Range(1, Mathf.Min(max, (mapWidth - 1) - pos.x));
+        int roomBottom = Random.Range(1, Mathf.Min(max, pos.y - 1));
+        int roomTop = Random.Range(1, Mathf.Min(max, (mapHeight - 1) - pos.y));
+        //Debug.Log("left: " + roomLeft + ", right: " + roomRight + ", bottom: " + roomBottom + ", top" + roomTop + ", pos: " + pos);
+
+        for (int i = pos.x - roomLeft - 1; i <= pos.x + roomRight; i++)
+        {
+            for (int j = pos.y - roomBottom - 1; j <= pos.y + roomTop; j++)
+            {
+                if ( !(i > 0 && j > 0 && i < mapWidth - 1 && j < mapHeight - 1 && rooms[i, j] != 0) )
+                {
+                    //Debug.Log("blad");
+                    return false;
+                }
+            }
+        }
+
+        for (int i = pos.x - roomLeft; i < pos.x + roomRight; i++)
+        {
+            for (int j = pos.y - roomBottom; j < pos.y + roomTop; j++)
+            {
+                map[i, j] = 0;
+                rooms[i, j] = 0;
+            }
+        }
+        //Debug.Log("created room");
+        return true;
+    }
 
     public override int[,] generateMap()
     {
-        //maxRoomSize = (int)Mathf.Floor((Mathf.Min(mapHeight, mapWidth)) / 4);
-        maxRoomSize = 6;
-        maxNumberOfSteps = mapWidth * mapHeight;
         int[,] map = new int[mapWidth, mapHeight];
-
-        for (int i = 0; i < mapWidth; i++)
+        int[,] actualRooms = new int[mapWidth, mapHeight];
+        int[,] corridors = new int[mapWidth, mapHeight];
+        for (int i=0; i<mapWidth; i++)
         {
-            for (int j = 0; j < mapHeight; j++)
+            for(int j=0; j<mapHeight; j++)
             {
                 map[i, j] = 1;
+                actualRooms[i, j] = 1;
+                corridors[i, j] = 1;
             }
         }
+        List<Vector2Int> rooms = new List<Vector2Int>();
+        List<Vector2Int> corrs = new List<Vector2Int>();
 
-        System.Random random = new System.Random();
-        digger.x = random.Next(mapWidth / 4, 3 * mapWidth / 4);
-        digger.y = random.Next(mapHeight / 4, 3 * mapHeight / 4);
-        map[digger.x, digger.y] = 0;
-        currentDirection = directionIndexes[random.Next(0, 4)];
-        Debug.Log(currentDirection);
 
-        while (isEnoughSpace && maxNumberOfSteps > 0)
+        Vector2Int position = new Vector2Int(Mathf.FloorToInt(mapHeight / 2), Mathf.FloorToInt(mapWidth / 2));
+        int direction = Random.Range(0, 4);
+        int directionChance = directionChanceInc;
+        int roomChance = roomChanceInc;
+
+        Vector2Int prevPosition = position;
+        int reviveFailed = 0;
+        int t = 0;
+
+        void Revive()
         {
-            digTunnel(map);
-            tryToChangeDirection(random);
-            if (checkIfRoomPossible(random))
+            int dir = Random.Range(0, 4);
+            if ((dir + 2) % 4 == direction || dir == direction) dir++;
+            direction = dir % 4;
+            t++;
+            if(reviveFailed >= 3)
             {
-                if (!digRoom(map, random))
-                {
-                    Debug.Log("Cannot fit another room.");
-                    isEnoughSpace = false;
-                }
-                else
-                {
-                    Debug.Log("Digging a room.");
-                }
+                //Debug.Log("revive failed 4x: ");
+
+                position = corrs[Random.Range(0, corrs.Count)];
+                reviveFailed = 0;
             }
-            maxNumberOfSteps -= 1;
         }
 
+        // algorithm starts
+        while(t < tolerance)
+        {
+            int dirRand = Random.Range(0, 100);
+            int roomRand = Random.Range(0, 100);
+
+            // change direction
+            if (dirRand < directionChance)
+            {
+                direction = Random.Range(0, 4);
+                directionChance = 0;
+            }
+            else directionChance += directionChanceInc;
+
+            // create room
+            if (roomRand < roomChance)
+            {
+                if(!CreateRoom(position, map, actualRooms))
+                {
+                    t++;
+                }
+                roomChance = 0;
+            }
+            else roomChance += roomChanceInc;
+
+            Vector2Int newPosition = position + directions[direction];
+
+            // dig
+            if (IsInMapRange(newPosition) && IsEmptyEnough(newPosition, corridors, 2))
+            {
+                position = newPosition;
+                map[position.x, position.y] = 0;
+                corridors[position.x, position.y] = 0;
+                corrs.Add(new Vector2Int(position.x, position.y));
+                rooms.Add(new Vector2Int(position.x, position.y));
+            }
+            else
+            {
+                if (position == prevPosition) reviveFailed++;
+                prevPosition = position;
+                Revive();
+            };
+
+            // stop
+            if(t > tolerance)
+            {
+                break;
+            }
+        }
+        
         return map;
     }
-
-
 }

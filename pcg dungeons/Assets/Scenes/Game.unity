@@ -2185,9 +2185,9 @@ MonoBehaviour:
   rockPrefab: {fileID: 3258697574813050470, guid: 4ee2bc01a9506d2458ebb528cc727f8b,
     type: 3}
   resurectionPrefab: {fileID: 400000, guid: ada5d62ffe762ce4fbccc70dcdbc9022, type: 3}
-  enemies: 5
-  plants: 113
-  rocks: 128
+  enemies: 2
+  plants: 20
+  rocks: 20
 --- !u!224 &1464546680 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8170153791668043268, guid: 0d230cc8be529a542a08cb878ab14b18,
